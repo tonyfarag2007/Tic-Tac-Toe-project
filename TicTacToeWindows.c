@@ -22,7 +22,7 @@ printf("\nGAME STARTED!\n\n");
 for(int i = 0; i<size; i++){
     for(int j = 0; j<size; j++){
         board[i][j] = ' ';
-        printf("[ ]", board[i][j]);
+        printf("[%c]", board[i][j]);
     }
     printf("\n");
 }
@@ -435,4 +435,5 @@ void createGameStats(){
     else if(win == 4){
     stats.antiDiagonalWins++;
     }
+
 }
