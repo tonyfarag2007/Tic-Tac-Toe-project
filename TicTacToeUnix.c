@@ -43,9 +43,9 @@ for(int i = 0; i<size; i++){
         if(board[i][x] != board[i][0] || board[i][x] == ' '){
             break;
     }
-}
-if(x == size){
+    if(x == size-1){
     return 1;
+}
 }
 }
 int b;
@@ -54,10 +54,10 @@ for(int u = 0; u<size; u++){
         if(board[b][u] != board[0][u] || board[b][u] == ' '){
             break;
         }
-    }
-    if(b == size){
+        if(b == size-1){
     return 2;
 }
+    }
 }
 int q;
 for(int y = 0, q = 0; y<size && q<size; y++, q++){
