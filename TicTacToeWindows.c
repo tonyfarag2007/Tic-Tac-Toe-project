@@ -14,8 +14,19 @@ typedef struct {
     int antiDiagonalWins;
 } GameStats;
     GameStats stats;
+    typedef enum{
+        NO_WIN,
+        HORIZONTAL_WIN,
+        VERTICAL_WIN,
+        DIAGONAL_WIN,
+        ANTIDIAGONAL_WIN
+    } WinResult;
+    typedef enum{
+        NO_DRAW,
+        DRAW
+    }DrawResult;
 int size, row, column, row2, column2, a, l, k, ai, pl;
-char board[MAX_SIZE][MAX_SIZE], winner;
+char board[MAX_SIZE][MAX_SIZE];
 void gameLoop();
 void initializeBoard(char board[MAX_SIZE][MAX_SIZE], int size){
 printf("\nGAME STARTED!\n\n");
@@ -37,7 +48,7 @@ for(int m = 0; m<size; m++){
     printf("\n");
 }
 }
-int checkWin(char board[MAX_SIZE][MAX_SIZE], int size){
+WinResult checkWin(char board[MAX_SIZE][MAX_SIZE], int size){
     int x;
 for(int i = 0; i<size; i++){
     for(x = 0; x<size; x++){
@@ -45,7 +56,7 @@ for(int i = 0; i<size; i++){
             break;
     }
     if(x == size-1){
-    return 1;
+    return HORIZONTAL_WIN;
 }
 }
 }
@@ -56,7 +67,7 @@ for(int u = 0; u<size; u++){
             break;
         }
         if(b == size-1){
-    return 2;
+    return VERTICAL_WIN;
 }
     }
 }
@@ -67,7 +78,7 @@ for(int y = 0, q = 0; y<size && q<size; y++, q++){
     }
 
 if(q == size - 1){
-    return 3;
+    return DIAGONAL_WIN;
 }
 }
 int z, c;
@@ -76,27 +87,28 @@ for(z = 0, c = size-1; z <size && c >=0; z++, c--){
         break;
     }
     if(z == size - 1){
-        return 4;
+        return ANTIDIAGONAL_WIN;
     }
 }
-return 0;
+return NO_WIN;
 }
-int updateScore(char winner);
+void updateScore(char winner);
 void createGameStats();
 void printGameStats();
-int checkDraw(char board[MAX_SIZE][MAX_SIZE], int size){
-    int r, s, win = checkWin(board, size);
+DrawResult checkDraw(char board[MAX_SIZE][MAX_SIZE], int size){
+    int r, s;
+    WinResult win = checkWin(board, size);
     for(r = 0; r<size; r++){
         for(s = 0; s<size; s++){
-            if(win != 0){
-                return 0;
+            if(win != NO_WIN){
+                return NO_DRAW;
             }
             if(board[r][s] == ' '){
-                return 0;
+                return NO_DRAW;
             }
         }
     }
-    return 1;
+    return DRAW;
 }
 void playerMove(char board[MAX_SIZE][MAX_SIZE], int size);
 void aiMove(char board[MAX_SIZE][MAX_SIZE], int size);
@@ -245,12 +257,12 @@ int main(){
             }
     board[row - 1][column - 1] = 'X';
     updateBoard(board, size);
-    if(checkWin(board, size) != 0){
+    if(checkWin(board, size) != NO_WIN){
         printf("\nGame over, player X won!\n");
         updateScore('X');
         break;
     }
-    if(checkDraw(board, size) == 1){
+    if(checkDraw(board, size) == DRAW){
         printf("\nGame is a draw!\n");
         updateScore('N');
     }
@@ -272,18 +284,18 @@ int main(){
             }
     board[row2 - 1][column2 - 1] = 'O';
     updateBoard(board, size);
-    if(checkWin(board, size) != 0){
+    if(checkWin(board, size) != NO_WIN){
         printf("\nGame over, player O won!\n");
         updateScore('O');
         break;
     }
-    if(checkDraw(board, size) == 1){
+    if(checkDraw(board, size) == DRAW){
         printf("\nThe game is a draw!\n");
         updateScore('N');
     }
 }
     }
-    int updateScore(char winner){
+    void updateScore(char winner){
     if(k == 1){
         if(winner == 'N'){
             goto no_win;
@@ -342,12 +354,12 @@ void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
             }
     board[row - 1][column - 1] = 'X';
     updateBoard(board, size);
-    if(checkWin(board, size) != 0){
+    if(checkWin(board, size) != NO_WIN){
         printf("\nGame over, player won!\n");
         updateScore('X');
         break;
     }
-    if(checkDraw(board, size) != 0){
+    if(checkDraw(board, size) == DRAW){
         printf("\nThe game is a draw!\n");
         updateScore('N');
     }
@@ -358,7 +370,7 @@ void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
         for(int t = 0; t<size; t++){
             if(board[u][t] == ' '){
                 board[u][t] = 'O';
-                if(checkWin(board, size) != 0){
+                if(checkWin(board, size) != NO_WIN){
                     board[u][t] = 'O';
                     updateBoard(board, size);
                     printf("\nGame over, AI won!\n");
@@ -373,7 +385,7 @@ void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
         for(int q = 0; q<size; q++){
             if(board[x][q] == ' '){
             board[x][q] = 'X';
-            if(checkWin(board, size) != 0){
+            if(checkWin(board, size) != NO_WIN){
                 board[x][q] = 'O';
                 updateBoard(board, size);
                 goto after_ai_move;
@@ -395,12 +407,12 @@ void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
 
     updateBoard(board, size);
     after_ai_move:
-    if(checkWin(board, size) != 0){
+    if(checkWin(board, size) != NO_WIN){
         printf("\nGame over, AI won!\n");
         updateScore('O');
         break;
     }
-    if(checkDraw(board, size) != 0){
+    if(checkDraw(board, size) == DRAW){
         printf("The game is a draw!\n");
         updateScore('N');
 }
@@ -416,23 +428,23 @@ void printGameStats(){
     printf("Draws: %d\n", stats.draws);
 }
 void createGameStats(){
-    int win = checkWin(board, size);
-    int draw = checkDraw(board, size);
+    WinResult win = checkWin(board, size);
+    DrawResult draw = checkDraw(board, size);
     stats.games_played++;
-    if(draw == 1){
+    if(draw == DRAW){
         stats.draws++;
     }
 
-    else if(win == 1){ 
+    else if(win == HORIZONTAL_WIN){ 
     stats.horizontalWins++;
     }
-    else if(win == 2){
+    else if(win == VERTICAL_WIN){
         stats.verticalWins++;
     }
-    else if(win == 3){
+    else if(win == DIAGONAL_WIN){
     stats.diagonalWins++;
     }
-    else if(win == 4){
+    else if(win == ANTIDIAGONAL_WIN){
     stats.antiDiagonalWins++;
     }
 }
