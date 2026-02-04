@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>
 #include <windows.h>
 #define MAX_SIZE 10 // Maximum grid size
 
@@ -448,3 +447,4 @@ void createGameStats(){
     stats.antiDiagonalWins++;
     }
 }
+
