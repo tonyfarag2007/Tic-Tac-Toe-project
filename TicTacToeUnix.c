@@ -309,7 +309,6 @@ int main(){
         printf("\nThe current score is\n");
     printf("\nX: %d vs O: %d\n", a, l);
     createGameStats();
-    printGameStats();
     playAgain(k);
     }
     else{
@@ -326,7 +325,6 @@ int main(){
         printf("\nThe current score is\n");
     printf("\nPlayer: %d vs AI: %d\n", pl, ai);
     createGameStats();
-    printGameStats();
     playAgain(k);
     }
     
@@ -447,3 +445,4 @@ void createGameStats(){
     stats.antiDiagonalWins++;
     }
 }
+
