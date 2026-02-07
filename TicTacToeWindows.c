@@ -444,6 +444,3 @@ void createGameStats(){
     stats.antiDiagonalWins++;
     }
 }
-
-
-
