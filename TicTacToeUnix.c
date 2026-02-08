@@ -177,8 +177,8 @@ int main(){
     }
     else if(temp == 3){
         printGameStats();
-        printf("\n1. Save file ");
-        printf("\n2. Return to main menu \n");
+        printf("\n1. Return to Main Menu ");
+        printf("\n2. Save File \n");
         fgets(buffer, sizeof(buffer), stdin);
         sscanf(buffer, "%d", &temp);
         while(temp != 1 && temp != 2){
@@ -186,7 +186,7 @@ int main(){
         fgets(buffer, sizeof(buffer), stdin);
         sscanf(buffer, "%d", &temp);
         }
-        if(temp == 2){
+        if(temp == 1){
         system("clear");
         gameLoop();
         }
@@ -444,4 +444,5 @@ void createGameStats(){
     stats.antiDiagonalWins++;
     }
 }
+
 
