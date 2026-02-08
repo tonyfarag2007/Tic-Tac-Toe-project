@@ -365,6 +365,7 @@ void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
     Sleep(aiThink);
     for(int u = 0; u<size; u++){
         for(int t = 0; t<size; t++){
+            board[u][t] = 'O';
             if(board[u][t] == ' '){
                 board[u][t] = 'O';
                 if(checkWin(board, size) != NO_WIN){
@@ -444,5 +445,6 @@ void createGameStats(){
     stats.antiDiagonalWins++;
     }
 }
+
 
 
