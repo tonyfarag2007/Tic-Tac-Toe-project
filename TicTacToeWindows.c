@@ -119,12 +119,12 @@ void playAgain(int k){
     char buffer[100];
     fgets(buffer, sizeof(buffer), stdin);
      sscanf(buffer, " %c", &again);
-    while(again != 'Y' && again != 'N' && again != 'M'){
+    while(again != 'Y' && again != 'N' && again != 'M' && again != 'y' && again != 'n' && again != 'm'){
         printf("Invalid input, try again: ");
         fgets(buffer, sizeof(buffer), stdin);
         sscanf(buffer, " %c", &again);
     }
-    if(again == 'Y'){
+    if(again == 'Y' || again == 'y'){
         if(k == 1){
         system("cls");
         initializeBoard(board, size);
@@ -136,7 +136,7 @@ void playAgain(int k){
             aiMove(board, size);
         }
     }
-    else if(again == 'N'){
+    else if(again == 'N' || again == 'n'){
         printf("Thanks for playing!");
         Sleep(1000);
         exit(0);
@@ -444,3 +444,4 @@ void createGameStats(){
     stats.antiDiagonalWins++;
     }
 }
+
