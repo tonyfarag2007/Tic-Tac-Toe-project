@@ -264,6 +264,7 @@ int main(){
     if(checkDraw(board, size) == DRAW){
         printf("\nGame is a draw!\n");
         updateScore('N');
+        break;
     }
     printf("\nPlayer O's turn\n");
     printf("Enter row and column (1-%d): ", size);
@@ -291,6 +292,7 @@ int main(){
     if(checkDraw(board, size) == DRAW){
         printf("\nThe game is a draw!\n");
         updateScore('N');
+        break;
     }
 }
     }
