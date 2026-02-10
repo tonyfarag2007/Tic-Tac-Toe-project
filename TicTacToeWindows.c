@@ -435,7 +435,6 @@ void createGameStats(){
     if(draw == DRAW){
         stats.draws++;
     }
-
     else if(win == HORIZONTAL_WIN){ 
     stats.horizontalWins++;
     }
