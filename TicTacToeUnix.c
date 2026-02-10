@@ -361,6 +361,7 @@ void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
     if(checkDraw(board, size) == DRAW){
         printf("\nThe game is a draw!\n");
         updateScore('N');
+        break;
     }
     printf("\nAI's turn\nAI is thinking ...\n");
     int aiThink = rand() % 4 + 1;
@@ -447,3 +448,4 @@ void createGameStats(){
     stats.antiDiagonalWins++;
     }
 }
+
