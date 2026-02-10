@@ -415,6 +415,7 @@ void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
     if(checkDraw(board, size) == DRAW){
         printf("The game is a draw!\n");
         updateScore('N');
+        break;
 }
 }
 }
@@ -448,4 +449,3 @@ void createGameStats(){
     stats.antiDiagonalWins++;
     }
 }
-
