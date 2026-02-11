@@ -262,7 +262,7 @@ int main(){
         break;
     }
     if(checkDraw(board, size) == DRAW){
-        printf("\nGame is a draw!\n");
+        printf("\nThe game is a draw!\n");
         updateScore('N');
         break;
     }
@@ -448,3 +448,4 @@ void createGameStats(){
     stats.antiDiagonalWins++;
     }
 }
+
