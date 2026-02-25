@@ -363,7 +363,7 @@ void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
         updateScore('N');
         break;
     }
-    printf("\nAI's turn\nAI is thinking ...\n");
+    printf("\nAI's turn\nthinking ...\n");
     int aiThink = rand() % 4 + 1;
     sleep(aiThink);
     for(int u = 0; u<size; u++){
@@ -371,7 +371,6 @@ void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
             if(board[u][t] == ' '){
                 board[u][t] = 'O';
                 if(checkWin(board, size) != NO_WIN){
-                    board[u][t] = 'O';
                     updateBoard(board, size);
                     printf("\nGame over, AI won!\n");
                     updateScore('O');
@@ -448,4 +447,5 @@ void createGameStats(){
     stats.antiDiagonalWins++;
     }
 }
+
 
