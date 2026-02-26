@@ -369,8 +369,8 @@ void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
     for(int u = 0; u<size; u++){
         for(int t = 0; t<size; t++){
             if(board[u][t] == ' '){
+                board[u][t] = 'O';
                 if(checkWin(board, size) != NO_WIN){
-                    board[u][t] = 'O';
                     updateBoard(board, size);
                     printf("\nGame over, AI won!\n");
                     updateScore('O');
@@ -447,5 +447,6 @@ void createGameStats(){
     stats.antiDiagonalWins++;
     }
 }
+
 
 
