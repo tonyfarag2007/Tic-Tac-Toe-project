@@ -48,9 +48,8 @@ for(int m = 0; m<size; m++){
 }
 }
 WinResult checkWin(char board[MAX_SIZE][MAX_SIZE], int size){
-    int x;
 for(int i = 0; i<size; i++){
-    for(x = 0; x<size; x++){
+    for(int x = 0; x<size; x++){
         if(board[i][x] != board[i][0] || board[i][x] == ' '){
             break;
     }
@@ -59,9 +58,8 @@ for(int i = 0; i<size; i++){
 }
 }
 }
-int b;
 for(int u = 0; u<size; u++){
-    for(b = 0; b<size; b++){
+    for(int b = 0; b<size; b++){
         if(board[b][u] != board[0][u] || board[b][u] == ' '){
             break;
         }
@@ -70,7 +68,6 @@ for(int u = 0; u<size; u++){
 }
     }
 }
-int q;
 for(int y = 0, q = 0; y<size && q<size; y++, q++){
     if(board[y][q] != board[0][0] || board[y][q] == ' '){
         break;
@@ -80,8 +77,7 @@ if(q == size - 1){
     return DIAGONAL_WIN;
 }
 }
-int z, c;
-for(z = 0, c = size-1; z <size && c >=0; z++, c--){
+for(int z = 0, c = size-1; z <size && c >=0; z++, c--){
     if(board[z][c] != board[0][size - 1] || board[z][c] == ' '){
         break;
     }
@@ -447,6 +443,7 @@ void createGameStats(){
     stats.antiDiagonalWins++;
     }
 }
+
 
 
 
