@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-#define MAX_SIZE 10 // Maximum grid size
+#define MAX_SIZE 10 // Maximum board size
 
-typedef struct {
+//Global struct and enums to allow easy access by multiple functions
+
+typedef struct { // Struct for game stats that tracks game and draw counts, and win types
     int games_played;
     int draws;
     int verticalWins;
@@ -13,21 +15,23 @@ typedef struct {
     int antiDiagonalWins;
 } GameStats;
     GameStats stats;
-    typedef enum{
+    typedef enum{ // Win-based enum that is used by checkWin(), which returns the win type and is used to create game stats
         NO_WIN,
         HORIZONTAL_WIN,
         VERTICAL_WIN,
         DIAGONAL_WIN,
         ANTIDIAGONAL_WIN
     } WinResult;
-    typedef enum{
+    typedef enum{ // Draw-based enum used by checkDraw()
         NO_DRAW,
         DRAW
     }DrawResult;
 int size, row, column, row2, column2, a, l, k, ai, pl;
-char board[MAX_SIZE][MAX_SIZE];
+char board[MAX_SIZE][MAX_SIZE]; // Tic tac toe board
 void gameLoop();
-void initializeBoard(char board[MAX_SIZE][MAX_SIZE], int size){
+
+// Initializes a 2D array with empty spaces. @param size: sets the dimensions for the N x N grid (3-10).
+void initializeBoard(char board[MAX_SIZE][MAX_SIZE], int size){ 
 printf("\nGAME STARTED!\n\n");
 for(int i = 0; i<size; i++){
     for(int j = 0; j<size; j++){
@@ -37,8 +41,10 @@ for(int i = 0; i<size; i++){
     printf("\n");
 }
 }
-void updateBoard(char board[MAX_SIZE][MAX_SIZE], int size){
-system("clear");
+
+// Prints the updated board
+void updateBoard(char board[MAX_SIZE][MAX_SIZE], int size){ 
+system("clear"); // Clears the console screen 
 printf("\n");
 for(int m = 0; m<size; m++){
     for(int t = 0; t<size; t++){
@@ -47,10 +53,12 @@ for(int m = 0; m<size; m++){
     printf("\n");
 }
 }
-WinResult checkWin(char board[MAX_SIZE][MAX_SIZE], int size){
-    int x;
+
+// Evaluates the current board state and returns a WinResult enum to identify the specific win pattern detected.
+WinResult checkWin(char board[MAX_SIZE][MAX_SIZE], int size){ 
+    // Horizontal win detector
 for(int i = 0; i<size; i++){
-    for(x = 0; x<size; x++){
+    for(int x = 0; x<size; x++){
         if(board[i][x] != board[i][0] || board[i][x] == ' '){
             break;
     }
@@ -59,6 +67,7 @@ for(int i = 0; i<size; i++){
 }
 }
 }
+// Vertical win detector
 for(int u = 0; u<size; u++){
     for(int b = 0; b<size; b++){
         if(board[b][u] != board[0][u] || board[b][u] == ' '){
@@ -69,6 +78,7 @@ for(int u = 0; u<size; u++){
 }
     }
 }
+// Diagonal win detector
 for(int y = 0, q = 0; y<size && q<size; y++, q++){
     if(board[y][q] != board[0][0] || board[y][q] == ' '){
         break;
@@ -78,6 +88,7 @@ if(q == size - 1){
     return DIAGONAL_WIN;
 }
 }
+// Anti-diagonal win detector
 for(int z = 0, c = size-1; z <size && c >=0; z++, c--){
     if(board[z][c] != board[0][size - 1] || board[z][c] == ' '){
         break;
@@ -86,12 +97,13 @@ for(int z = 0, c = size-1; z <size && c >=0; z++, c--){
         return ANTIDIAGONAL_WIN;
     }
 }
-return NO_WIN;
+return NO_WIN; // Does not return a win if no win is detected
 }
 void updateScore(char winner);
 void createGameStats();
 void printGameStats();
-DrawResult checkDraw(char board[MAX_SIZE][MAX_SIZE], int size){
+// Draw detector, returns a draw if checkWin() does not return a win and all cells are occupied
+DrawResult checkDraw(char board[MAX_SIZE][MAX_SIZE], int size){ 
     int r, s;
     WinResult win = checkWin(board, size);
     for(r = 0; r<size; r++){
@@ -108,15 +120,17 @@ DrawResult checkDraw(char board[MAX_SIZE][MAX_SIZE], int size){
 }
 void playerMove(char board[MAX_SIZE][MAX_SIZE], int size);
 void aiMove(char board[MAX_SIZE][MAX_SIZE], int size);
-void playAgain(int k){
+// Replay function that prompts user to play again, return to main menu, or exit the program
+void playAgain(int k){ 
     char again;
     printf("\nY. Play again \n");
     printf("M. Return to main menu \n");
     printf("N. Exit\n");
     char buffer[100];
+    // Reads an entire line via fgets() and sscanf() and reprompting the user if the input is invalid until they input anything valid
     fgets(buffer, sizeof(buffer), stdin);
      sscanf(buffer, " %c", &again);
-    while(again != 'Y' && again != 'N' && again != 'M' && again != 'y' && again != 'n' && again != 'm'){
+    while(again != 'Y' && again != 'N' && again != 'M' && again != 'y' && again != 'n' && again!= 'm'){
         printf("Invalid input, try again: ");
         fgets(buffer, sizeof(buffer), stdin);
         sscanf(buffer, " %c", &again);
@@ -148,6 +162,7 @@ int main(){
     gameLoop();
     return 0;
     }
+    // gameLoop() handles main menu logic such as starting a new game, viewing game stats, and exiting
     void gameLoop(){
         printf("TIC TAC TOE GAME\n");
         printf("\n||-- MAIN MENU --||\n");
@@ -174,8 +189,8 @@ int main(){
     }
     else if(temp == 3){
         printGameStats();
-        printf("\n1. Return to Main Menu ");
-        printf("\n2. Save File \n");
+        printf("\n1. Return to Main Menu");
+        printf("\n2. Save File\n");
         fgets(buffer, sizeof(buffer), stdin);
         sscanf(buffer, "%d", &temp);
         while(temp != 1 && temp != 2){
@@ -188,7 +203,7 @@ int main(){
         gameLoop();
         }
         else{
-            FILE *statistics = fopen("stats.txt", "w");
+            FILE *statistics = fopen("stats.txt", "w"); // creates a new file that stores game stats
             if(statistics == NULL){
                 printf("File not found");
             }
@@ -231,12 +246,17 @@ int main(){
         aiMove(board, size);
     }
     }
+    // Handles gameplay logic in Pvp mode
     void playerMove(char board[MAX_SIZE][MAX_SIZE], int size){
     while(1){
     printf("\nPlayer X's turn\n");
     printf("Enter row and column (1-%d): ", size);
     invalid_moveX:
     char buffer[100];
+
+    /*Manual exception handling for different types of errors 
+    such as invalid cell locations, invalid input type, etc*/
+
     fgets(buffer, sizeof(buffer), stdin);
        if(sscanf(buffer, "%d %d", &row, &column)!=2){
         printf("Please enter at least two numbers for the row and column: ");
@@ -252,12 +272,15 @@ int main(){
         goto invalid_moveX;
             }
     board[row - 1][column - 1] = 'X';
-    updateBoard(board, size);
+    updateBoard(board, size); // Updates board based on player X input
+
+    // Win checks after each player X turn
     if(checkWin(board, size) != NO_WIN){
         printf("\nGame over, player X won!\n");
         updateScore('X');
         break;
     }
+    // Draw checks after each player X turn
     if(checkDraw(board, size) == DRAW){
         printf("\nThe game is a draw!\n");
         updateScore('N');
@@ -266,6 +289,10 @@ int main(){
     printf("\nPlayer O's turn\n");
     printf("Enter row and column (1-%d): ", size);
     invalid_moveO:
+
+    /*Manual exception handling for different types of errors 
+    such as invalid cell locations, invalid input type, etc*/
+
     fgets(buffer, sizeof(buffer), stdin);
         if(sscanf(buffer, "%d %d", &row2, &column2)!=2){
             printf("Please enter at least two numbers for the row and column: ");
@@ -280,12 +307,15 @@ int main(){
                 goto invalid_moveO;
             }
     board[row2 - 1][column2 - 1] = 'O';
-    updateBoard(board, size);
+    updateBoard(board, size); // Updates board based on player O input
+
+    // Win check after each player O turn
     if(checkWin(board, size) != NO_WIN){
         printf("\nGame over, player O won!\n");
         updateScore('O');
         break;
     }
+    // Draw check after each player O turn 
     if(checkDraw(board, size) == DRAW){
         printf("\nThe game is a draw!\n");
         updateScore('N');
@@ -293,6 +323,7 @@ int main(){
     }
 }
     }
+    // Score tracker that supports both game modes
     void updateScore(char winner){
     if(k == 1){
         if(winner == 'N'){
@@ -328,12 +359,14 @@ int main(){
     }
     
 }
+// Handles gameplay logic in PvAI mode
 void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
     while(1){
     printf("\nPlayer's turn\n");
     printf("Enter row and column (1-%d): ", size);
     invalid:
     char buffer[100];
+    // Manual exception handling
     fgets(buffer, sizeof(buffer), stdin);
         if(sscanf(buffer, "%d %d", &row, &column) != 2){
             printf("Please enter at least two numbers for the row and column: ");
@@ -348,24 +381,36 @@ void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
                 printf("Cell already occupied, try again: ");
                 goto invalid;
             }
-    board[row - 1][column - 1] = 'X';
+    board[row - 1][column - 1] = 'X'; // Placing 'X' based on user input
     updateBoard(board, size);
+    // Check win after each player move
     if(checkWin(board, size) != NO_WIN){
         printf("\nGame over, player won!\n");
         updateScore('X');
         break;
     }
+    // Check draw after each player move
     if(checkDraw(board, size) == DRAW){
         printf("\nThe game is a draw!\n");
         updateScore('N');
         break;
     }
     printf("\nAI's turn\nthinking ...\n");
-    int aiThink = rand() % 4 + 1;
+    int aiThink = rand() % 4 + 1; // // Artificial delay to improve UX by simulating a "thinking" phase for the computer opponent
     sleep(aiThink);
+
+    /* AI decision making hierarchiral logic (Win > Block > Random): 
+    - Plays the winning move if available (Win-player algorithm)
+    - Blocks player from winning if available (Win blocing algorithm)
+    - Plays random move (random move algorithm)
+    */
+   
+    // Win-player algorithm
     for(int u = 0; u<size; u++){
         for(int t = 0; t<size; t++){
             if(board[u][t] == ' '){
+                /* Iterates through each empty cell and temporary places 'O' to check if AI can win in the next turn. 
+                If valid, AI plays that move and wins*/
                 board[u][t] = 'O';
                 if(checkWin(board, size) != NO_WIN){
                     updateBoard(board, size);
@@ -373,26 +418,31 @@ void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
                     updateScore('O');
                     return;
                 }
-                board[u][t] = ' ';
+                board[u][t] = ' '; // If no winning move is possible, replace 'O' with empty char to restore old board
             }
         }
     }
+
+    // Win blocking algorithm
     for(int x = 0; x<size; x++){
         for(int q = 0; q<size; q++){
             if(board[x][q] == ' '){
-            board[x][q] = 'X';
+            /* Iterate through each empty cell and temporary place 'X' to check if player would win if it's played, 
+            then AI places 'O' on that exact cell to prevent player from winning*/
+            board[x][q] = 'X'; 
             if(checkWin(board, size) != NO_WIN){
                 board[x][q] = 'O';
                 updateBoard(board, size);
                 goto after_ai_move;
                 }
-                board[x][q] = ' ';
+                board[x][q] = ' '; // If no win-blocking moves are possible, replaces 'X' with empty char to restore old board
 
             }
         }
         }
+
+    // Random move algorithm
     while(1){
-        
     int rng1 = rand() % size;
     int rng2 = rand() % size;
         if(board[rng1][rng2] == ' '){
@@ -403,18 +453,21 @@ void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
 
     updateBoard(board, size);
     after_ai_move:
+    // Check win after each AI move
     if(checkWin(board, size) != NO_WIN){
         printf("\nGame over, AI won!\n");
         updateScore('O');
         break;
     }
+    // Check draw after each AI move
     if(checkDraw(board, size) == DRAW){
         printf("The game is a draw!\n");
         updateScore('N');
         break;
+    }
 }
 }
-}
+// Printing stats created by createGameStats()
 void printGameStats(){
     printf("\n||-- GAME STATS --||\n");
     printf("Games Played: %d\n", stats.games_played);
@@ -424,6 +477,7 @@ void printGameStats(){
     printf("Anti Diagonal Wins: %d\n", stats.antiDiagonalWins);
     printf("Draws: %d\n", stats.draws);
 }
+// Stats creator, it tracks games played, win types, and draw count
 void createGameStats(){
     WinResult win = checkWin(board, size);
     DrawResult draw = checkDraw(board, size);
@@ -444,6 +498,3 @@ void createGameStats(){
     stats.antiDiagonalWins++;
     }
 }
-
-
-
