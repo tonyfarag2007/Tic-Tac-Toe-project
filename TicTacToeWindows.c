@@ -118,8 +118,8 @@ DrawResult checkDraw(char board[MAX_SIZE][MAX_SIZE], int size){
     }
     return DRAW;
 }
-void playerMove(char board[MAX_SIZE][MAX_SIZE], int size);
-void aiMove(char board[MAX_SIZE][MAX_SIZE], int size);
+void pvpMode(char board[MAX_SIZE][MAX_SIZE], int size);
+void pvaiMode(char board[MAX_SIZE][MAX_SIZE], int size);
 // Replay function that prompts user to play again, return to main menu, or exit the program
 void playAgain(int k){ 
     char again;
@@ -139,12 +139,12 @@ void playAgain(int k){
         if(k == 1){
         system("cls");
         initializeBoard(board, size);
-        playerMove(board, size);
+        pvpMode(board, size);
         }
         else if(k == 2){
             system("cls");
             initializeBoard(board, size);
-            aiMove(board, size);
+            pvaiMode(board, size);
         }
     }
     else if(again == 'N' || again == 'n'){
@@ -240,14 +240,14 @@ int main(){
     }
     k = temp;
     if(k == 1){
-        playerMove(board, size);
+        pvpMode(board, size);
     }
     else{
-        aiMove(board, size);
+        pvaiMode(board, size);
     }
     }
     // Handles gameplay logic in Pvp mode
-    void playerMove(char board[MAX_SIZE][MAX_SIZE], int size){
+    void pvpMode(char board[MAX_SIZE][MAX_SIZE], int size){
     while(1){
     printf("\nPlayer X's turn\n");
     printf("Enter row and column (1-%d): ", size);
@@ -360,7 +360,7 @@ int main(){
     
 }
 // Handles gameplay logic in PvAI mode
-void aiMove(char board[MAX_SIZE][MAX_SIZE], int size){
+void pvaiMode(char board[MAX_SIZE][MAX_SIZE], int size){
     while(1){
     printf("\nPlayer's turn\n");
     printf("Enter row and column (1-%d): ", size);
