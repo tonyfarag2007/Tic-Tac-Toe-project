@@ -13,4 +13,4 @@ Features:
 - Save game statistics to a file
 - Robust input handling using fgets and sscanf
 - Terminal screen clearing for a clean UI
-- Works on Unix/Linux and Windpws
+- Works on Unix/Linux and Windows
