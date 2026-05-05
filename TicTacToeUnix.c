@@ -8,7 +8,7 @@
 //Global struct and enums to allow easy access by multiple functions
 
 typedef struct { // Struct for game stats that tracks game and draw counts, and win types
-    int games_played;
+    int gamesPlayed;
     int draws;
     int verticalWins;
     int horizontalWins;
@@ -215,7 +215,7 @@ int main(){
             }
             else{
                 fprintf(statistics, "||-- GAME STATS --||\n");
-                fprintf(statistics, "Games Played: %d\n", stats.games_played);
+                fprintf(statistics, "Games Played: %d\n", stats.gamesPlayed);
                 fprintf(statistics, "Vertical Wins: %d\n", stats.verticalWins);
                 fprintf(statistics, "Horizontal Wins: %d\n", stats.horizontalWins);
                 fprintf(statistics, "Diagonal Wins: %d\n", stats.diagonalWins);
@@ -438,7 +438,7 @@ void pvaiMode(char board[MAX_SIZE][MAX_SIZE], int size){
 // Printing stats created by createGameStats()
 void printGameStats(){
     printf("\n||-- GAME STATS --||\n");
-    printf("Games Played: %d\n", stats.games_played);
+    printf("Games Played: %d\n", stats.gamesPlayed);
     printf("Vertical Wins: %d\n", stats.verticalWins);
     printf("Horizontal Wins: %d\n", stats.horizontalWins);
     printf("Diagonal Wins: %d\n", stats.diagonalWins);
@@ -449,7 +449,7 @@ void printGameStats(){
 void createGameStats(){
     WinResult win = checkWin(board, size);
     DrawResult draw = checkDraw(board, size);
-    stats.games_played++;
+    stats.gamesPlayed++;
     if(draw == DRAW){
         stats.draws++;
     }
