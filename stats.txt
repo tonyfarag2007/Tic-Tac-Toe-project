@@ -1,7 +1,0 @@
-||-- GAME STATS --||
-Games Played: 0
-Vertical Wins: 0
-Horizontal Wins: 0
-Diagonal Wins: 0
-Anti Diagonal Wins: 0
-Draws: 0
