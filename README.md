@@ -9,7 +9,8 @@ Features:
 - Player vs Player mode
 - Player vs AI mode
 - Intelligent AI (win/block logic + randomness)
-- Game statistics tracking: Games played, Horizontal wins, Vertical wins, Diagonal wins, Anti-diagonal wins, Draws, Save game statistics to a file
+- Game statistics tracking: Games played, Horizontal wins, Vertical wins, Diagonal wins, Anti-diagonal wins, Draws
+- Save game statistics to a file
 - Robust input handling using fgets and sscanf
 - Terminal screen clearing for a clean UI
 - Works on Unix/Linux and Windpws
