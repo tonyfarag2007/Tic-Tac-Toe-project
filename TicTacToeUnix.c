@@ -108,6 +108,25 @@ return NO_WIN; // Does not return a win if no win is detected
 void updateScore(char winner);
 void createGameStats();
 void printGameStats();
+void validateInput(char *buffer, int bufferSize, int size, int row, int column) {
+    bool isValidInput = false;
+    do {
+        fgets(buffer, sizeof(buffer), stdin);
+        if(sscanf(buffer, "%d %d", &row, &column)!=2){
+            printf("Please enter at least two numbers for the row and column: ");
+        }
+
+        else if(row > size || column > size || row < 1 || column < 1){
+            printf("Invalid cell location, try again: ");
+        }
+        else if(board[row - 1][column -1] != ' '){
+            printf("Cell already occupied, try again: ");
+        }
+        else {
+            isValidInput = true;
+        }
+    }while (!isValidInput);
+}
 // Draw detector, returns a draw if checkWin() does not return a win and all cells are occupied
 DrawResult checkDraw(char board[MAX_SIZE][MAX_SIZE], int size){
     int r, s;
@@ -262,23 +281,7 @@ int main(){
 
     /*Manual exception handling for different types of errors
     such as invalid cell locations, invalid input type, etc*/
-        bool isValidInput = false;
-        do {
-            fgets(buffer, sizeof(buffer), stdin);
-            if(sscanf(buffer, "%d %d", &row, &column)!=2){
-                printf("Please enter at least two numbers for the row and column: ");
-            }
-
-            else if(row > size || column > size || row < 1 || column < 1){
-                printf("Invalid cell location, try again: ");
-            }
-            else if(board[row - 1][column -1] != ' '){
-                printf("Cell already occupied, try again: ");
-            }
-            else {
-                isValidInput = true;
-            }
-        }while (!isValidInput);
+        validateInput(buffer, 100, size, row, column);
     board[row - 1][column - 1] = currentPlayer;
     updateBoard(board, size); // Updates board based on player input
 
@@ -333,22 +336,7 @@ void pvaiMode(char board[MAX_SIZE][MAX_SIZE], int size){
     printf("Enter row and column (1-%d): ", size);
     char buffer[100];
     // Manual exception handling
-        bool isValidInput = false;
-    do {
-        fgets(buffer, sizeof(buffer), stdin);
-        if(sscanf(buffer, "%d %d", &row, &column) != 2){
-            printf("Please enter at least two numbers for the row and column: ");
-        }
-        else if(row > size || column > size || row < 1 || column < 1){
-            printf("Invalid cell location, try again: ");
-        }
-        else if(board[row - 1][column -1] != ' '){
-            printf("Cell already occupied, try again: ");
-        }
-        else {
-            isValidInput = true;
-        }
-    }while (!isValidInput);
+        validateInput(buffer, 100, size, row, column);
     board[row - 1][column - 1] = 'X'; // Placing 'X' based on user input
     updateBoard(board, size);
     // Check win after each player move

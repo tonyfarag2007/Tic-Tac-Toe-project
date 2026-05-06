@@ -5,6 +5,8 @@
   </component>
   <component name="BackendCodeEditorMiscSettings">
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
+    <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
   </component>
   <component name="CMakeProjectFlavorService">
     <option name="flavorId" value="CMakePlainProjectFlavor" />
@@ -16,7 +18,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5bcf3ba-ee70-42e4-b3a0-2f4ddc609ff7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TicTacToeUnix.c" beforeDir="false" afterPath="$PROJECT_DIR$/TicTacToeUnix.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TicTacToeWindows.c" beforeDir="false" afterPath="$PROJECT_DIR$/TicTacToeWindows.c" afterDir="false" />
     </list>
@@ -44,12 +47,16 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="3DIGB9fORQaOq1qN5byn2HK7iZJ" />
+  <component name="ProjectStatusUIService">{
+  &quot;uiKindId&quot;: &quot;Widget&quot;
+}</component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;C/C++ File.TicTacToeWindows.c.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -124,7 +131,12 @@
       <workItem from="1777962032597" duration="430000" />
       <workItem from="1777962502876" duration="2162000" />
       <workItem from="1777964873952" duration="908000" />
-      <workItem from="1777966021661" duration="329000" />
+      <workItem from="1777966021661" duration="757000" />
+      <workItem from="1777967204266" duration="76000" />
+      <workItem from="1777967455471" duration="149000" />
+      <workItem from="1777967959484" duration="37000" />
+      <workItem from="1777968019979" duration="100000" />
+      <workItem from="1777992424506" duration="9271000" />
     </task>
     <servers />
   </component>
