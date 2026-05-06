@@ -117,7 +117,7 @@ void processMove(int size, int *row, int *column) {
     bool isValidInput = false;
     do {
         fgets(buffer, sizeof(buffer), stdin);
-        if(sscanf(buffer, "%d %d", &row, &column) != 2){
+        if(sscanf(buffer, "%d %d", row, column) != 2){
             printf("Please enter at least two numbers for the row and column: ");
         }
         else if(*row > size || *column > size || *row < 1 || *column < 1){
