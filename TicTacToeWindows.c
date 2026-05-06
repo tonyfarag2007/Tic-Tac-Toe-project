@@ -331,8 +331,8 @@ int main(){
 }
 // Handles gameplay logic in PvAI mode
 void pvaiMode(char board[MAX_SIZE][MAX_SIZE], int size){
+    int row, column;
     while(1){
-        int row, column;
     printf("\nPlayer's turn\n");
     printf("Enter row and column (1-%d): ", size);
         processMove(size, &row, &column);
