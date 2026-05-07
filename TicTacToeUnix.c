@@ -277,7 +277,6 @@ int main(){
     void pvpMode(char board[MAX_SIZE][MAX_SIZE], int size){
     int row, column;
     char currentPlayer = 'X';
-    char buffer[100];
     while(1){
     printf("\nPlayer %c's turn\n", currentPlayer);
     printf("Enter row and column (1-%d): ", size);
