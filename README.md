@@ -1,6 +1,6 @@
 # Tic-Tac-Toe-project
 
-Tic Tac Toe in C  (Compatible in Unix & Windows)
+Tic Tac Toe in C
 
 A terminal-based Tic Tac Toe game written in C, supporting variable board sizes, Player vs Player and Player vs AI modes, persistent game statistics, and file saving. This project focuses on core C programming concepts such as arrays, structs, file I/O, control flow, and defensive input handling.
 
