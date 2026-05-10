@@ -350,10 +350,12 @@ void pvaiMode(char board[MAX_SIZE][MAX_SIZE], int size){
         break;
     }
     printf("\nAI's turn\nthinking ...\n");
-    int aiThink = rand() % 4 + 1; // // Artificial delay to improve UX by simulating a "thinking" phase for the computer opponent
+        /* Artificial delay to improve UX by
+        simulating a "thinking" phase for the computer opponent*/
+    int aiThink = rand() % 4 + 1;
     sleep(aiThink);
 
-    /* AI decision-making hierarchical logic (Win > Block > Random):
+    /* AI decision-making hierarchical logic (Win > Block > Random, a basic look-ahead search):
     - Plays the winning move if available (Win-player algorithm)
     - Blocks player from winning if available (Win blocking algorithm)
     - Plays random move (random move algorithm)
