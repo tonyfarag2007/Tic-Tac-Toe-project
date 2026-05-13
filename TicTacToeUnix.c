@@ -7,7 +7,8 @@
 
 //Global struct and enums to allow easy access by multiple functions
 
-typedef struct { // Struct for game stats that tracks game and draw counts, and win types
+// Struct for game stats that tracks game and draw counts, and win types
+typedef struct {
     int gamesPlayed;
     int draws;
     int verticalWins;
@@ -16,14 +17,18 @@ typedef struct { // Struct for game stats that tracks game and draw counts, and 
     int antiDiagonalWins;
 } GameStats;
     GameStats stats;
-    typedef enum{ // Win-based enum that is used by checkWin(), which returns the win type and is used to create game stats
+
+// Win-based enum that is used by checkWin(), which returns the win type and is used to create game stats
+    typedef enum{
         NO_WIN,
         HORIZONTAL_WIN,
         VERTICAL_WIN,
         DIAGONAL_WIN,
         ANTI_DIAGONAL_WIN
     } WinResult;
-    typedef enum{ // Draw-based enum used by checkDraw()
+
+// Draw-based enum used by checkDraw()
+    typedef enum{
         NO_DRAW,
         DRAW
     }DrawResult;
@@ -288,7 +293,9 @@ int main(){
 
     // Win checks after each turn
     if(checkWin(board, size) != NO_WIN){
+        sleep(1);
         printf("\nGame over, player %c won!\n", currentPlayer);
+        sleep(1);
         updateScore(currentPlayer);
         break;
     }
