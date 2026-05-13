@@ -60,7 +60,9 @@ for(int i = 0; i<size; i++){
 }
 }
 
-// Evaluates the current board state and returns a WinResult enum to identify the specific win pattern detected.
+/*Evaluates the current board state and
+  returns a WinResult enum to identify the specific win pattern detected.
+  Tracking different win types is important for statistics*/
 WinResult checkWin(char board[MAX_SIZE][MAX_SIZE], int size){
     // Horizontal win detector
 for(int i = 0; i<size; i++){
@@ -292,7 +294,9 @@ int main(){
     }
     // Draw checks after each turn
     if(checkDraw(board, size) == DRAW){
+        sleep(1);
         printf("\nThe game is a draw!\n");
+        sleep(1);
         updateScore('N');
         break;
     }
@@ -339,13 +343,17 @@ void pvaiMode(char board[MAX_SIZE][MAX_SIZE], int size){
     updateBoard(board, size);
     // Check win after each player move
     if(checkWin(board, size) != NO_WIN){
+        sleep(1);
         printf("\nGame over, player won!\n");
+        sleep(1);
         updateScore('X');
         break;
     }
     // Check draw after each player move
     if(checkDraw(board, size) == DRAW){
+        sleep(1);
         printf("\nThe game is a draw!\n");
+        sleep(1);
         updateScore('N');
         break;
     }
@@ -370,7 +378,9 @@ void pvaiMode(char board[MAX_SIZE][MAX_SIZE], int size){
                 board[i][j] = 'O';
                 if(checkWin(board, size) != NO_WIN){
                     updateBoard(board, size);
+                    sleep(1);
                     printf("\nGame over, AI won!\n");
+                    sleep(1);
                     updateScore('O');
                     return;
                 }
@@ -411,13 +421,17 @@ void pvaiMode(char board[MAX_SIZE][MAX_SIZE], int size){
     after_ai_move:
     // Check win after each AI move
     if(checkWin(board, size) != NO_WIN){
+        sleep(1);
         printf("\nGame over, AI won!\n");
+        sleep(1);
         updateScore('O');
         break;
     }
     // Check draw after each AI move
     if(checkDraw(board, size) == DRAW){
+        sleep(1);
         printf("The game is a draw!\n");
+        sleep(1);
         updateScore('N');
         break;
     }
